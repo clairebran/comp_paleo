@@ -1,2 +1,17 @@
-## Part 1
-1. 
+## Part 1.2
+1. SSH keys are used to communicate with a local computer and a remote server. Both the local computer and the remote server need a pair of public and private SSH keys. The private key is used to decrypt the public key sent from the remote server and vice versa. The public key is the one given to github. If I gave my private key away, it would severely compromise the privacy of my local computer.  
+2. ~/.ssh/id_ed25519 needs to have 600 permissions because that gives read & write access for the private key to just the owner and not the group or others (which would be represented by 644). 
+
+## Part 2.3
+3. git add moves new changes from your working directory to the staging area. The staging area is important because it allows for more control over what goes into your git repository upon committing. Without a staging area, what gets committed would contain a bunch of mixed changes, instead of being able to add specific changes to the staging area and then committing them with more control. 
+4. The 7 character string is an abbreviated git commit hash. The commit hash is a unique identifier that corresponds to a specific commit. 
+
+## Part 3.2
+5. git remote add origin links a local git repository to a remote repository (e.g., on github). Origin serves as the alias for the remote repository. 
+6. git fetch downloads changes from your remote repository only, while git pull does the same thing while also integrating the changes into your local current branch. 
+
+## Part 4.4
+7. HEAD, as it appears in a conflict marker, points toward your current branch. 
+8. You would want to use a branch when you are working on an experimental part of your project that you may not want to merge into your main branch yet without testing. For example, in my work I might want to create a new branch when I'm re-writing code but don't yet know if it will be successful.
+
+   
