@@ -1,0 +1,111 @@
+## Part 1.1
+1. #!usr/bin/env bash is the shebang line that tells the OS to use bash as the interpreter for the following code. Coding it this way, instead of using #!/bin/bash is preferable because env tells the script to use whichever bash is first in the PATH. Bash can be located in different places, so this means I don't have to search for it. 
+2. chmod +x gives the owner, group, and others execute permissions. Without this, trying to run the shell script would result in a Permission Denied error. 
+3. ./hello_researcher.sh uses the shebang line to tell the script to use bash as the interpreter. bash hello_researcher.sh first assigns bash as the interpreter, and then passes the file as the script to execute. With this second method, you don't need execute permissions because you're not directly executing the file, just using a bash command to do so. 
+
+## Part 1.2
+Output from hello_researcher.sh: 
+Researcher: clairebrandes
+Date: 2026-09-14
+Dataset: otb_fossils.tsv
+Row count:     1243
+
+## Part 1.3
+1. $0 contains the path/name of the file fed to the script that information is then output for. 
+2. $# contains the number of arguments passed to the script, so  that it can confirm that only one argument was passed to it. 
+3. exit 1 stops the script at that point if the number of arguments is not equal to 1. The script will stop and give an error message. Exit 0 would indicate a success, while exit 1 indicates a failure. 
+4. Output from running dataset_info.sh on otb_fossils.tsv:
+=====================================
+File:    otb_fossils.tsv
+Rows:        1242 (excluding header)
+Columns:       30
+Header fields:
+     1	catalog_number
+     2	organism_id
+     3	preparations
+     4	year
+     5	discovered_by
+     6	continent
+     7	country
+     8	state_province
+     9	region
+    10	subregion
+    11	place
+    12	locality
+    13	earliest_period_or_lowest_system
+    14	latest_period_or_highest_system
+    15	earliest_epoch_or_lowest_series
+    16	latest_epoch_or_highest_series
+    17	earliest_age_or_lowest_stage
+    18	latest_age_or_highest_stage
+    19	formation
+    20	member
+    21	bed
+    22	scientific_name
+    23	identification_qualifier
+    24	date_identified
+    25	verbatim_identification
+    26	verbatim_chronometric_age
+    27	earliest_chronometric_age
+    28	earliest_chronometric_age_reference_system
+    29	latest_chronometric_age
+    30	latest_chronometric_age_reference_system
+=====================================
+
+## Part 2.3
+1. $((ERRORS + 1)) is an arithmetic expression. It allows bash to perform mathematic operations. In this case, the script adds 1 to the value of $ERRORS and then reassigns the result back to $ERRORS. This creates a counter for every time a check fails. 
+2. The script uses exit 0 for a failure because that is the exit code that indicates a success in the terminal environment. Likewise, 1 (or other non-zero numbers) indicate failures. 
+3. Running the script with the wrong expected column count for otb_fossils.tsv output:
+---
+FAIL: header has 30 columns (expected 29)
+INFO: 1242 data rows (plus 1 header)
+FAIL: 1244 row(s) have wrong column count
+      First 5 offending line numbers:
+  Line 1 has 30 columns
+  Line 2 has 30 columns
+  Line 3 has 30 columns
+  Line 4 has 30 columns
+  Line 5 has 30 columns
+---
+4. Modified script to print the filename of the first row with  the wrong column count, not just the line number:
+# Check for rows with wrong column count
+BAD_ROWS=$(awk -F'\t' -v cols="$EXPECTED_COLS" 'NF != cols {print NR}' "$FILEPATH" | wc -l | tr -d ' ')
+if [ "$BAD_ROWS" -eq 0 ]; then
+    echo "PASS: all rows have $EXPECTED_COLS columns"
+else
+    echo "FAIL: $BAD_ROWS row(s) have wrong column count"
+    echo "      First 5 offending line numbers:"
+    FILENAME_ONLY=$(basename "$FILEPATH")
+    awk -F'\t' -v cols="$EXPECTED_COLS" -v fname="$FILENAME_ONLY" \
+        'NF != cols {print "  " fname ", Line", NR, "has", NF, "columns"}' \
+        "$FILEPATH" | head -5
+    ERRORS=$((ERRORS + 1))
+fi
+
+## Part 3.1
+The formation list in the script is hardcoded. It would be better to derive the list of formations from the data itself, because it would account for the addition/subtraction of other formations in the future without having to change the script. You could use awk to  extract formations from column 19 of the dataset and then code a for loop over that. 
+
+## Part 3.2
+1. 2>/dev/null redirects the standard error to /dev/null; in other words, it hides error messages.
+2. If you run the script on a directory without TSV files, it will result in an error that reads: "No TSV files found in <filepath>".
+3. Output when running batch_inspect.sh on my week03 directory:
+Filename                                 Rows   Columns
+--------                                 ----   -------
+otb_fossils.tsv                          1242        30
+specimens_summary_short.tsv              1243         3
+specimens_summary.tsv                    1243         3
+
+## Part 3.3
+1. IF=$'\t' read -r CATALOG_NUM REST first tells bash to use tabs as the boundaries between fields, then reads one line from the input (the -r flag treats backslashes literally instead of as line breaks), sends the first tab-seperated field into the CATALOG_NUM variable, and sends everything else into the REST variable. 
+2. [[ "CATALOG_NUM" != "$PREFIX"* ]] checks if the catalog number value stored in CATALOG_NUM does not start with the value of PREFIX followed by anything (as indicated by the wildcard *). Using [[ ]] instead of [ ] here is important because it handles the * wildcard, while [ ] does not. 
+3. tee -a "$LOG_FILE" takes the input and writes it to $LOG_FILE. The tee command sends the output to that file and also to the terminal, so you can see it as an output while running the script. The -a flag appends, rather than rewrites, the content in the log file. 
+4. The lastpipe option runs the last command of a pipeline in the terminal instead of in a subshell. while ... one < <(command) changes the script so that the while loop isn't a part of a pipe anymore, meaning it will not run in a subshell. 
+
+## Part 5
+1. Python requires spaces around the variable assignment, while bash does not. For exaple variable = 0 is fine in python but variable=0 is not and will only work in bash. 
+2. In python, for loops are constructed with different syntax. Both use "for," but python relies on indentation while coding for loops while bash relies on keywords (e.g., do/done). 
+3. Indentation makes bash code more readable, but it is not reuquired. In python, indentation is a required part of the coding syntax. 
+4. for i, row in enumerate(reader) returns i (the row number) and the actual row (row). Two variables are needed because enumerate() provides two values. 
+5. The validation check on line 43 expects three arguments because it is also accounting for the script name. It is checking that it has the script name and the two required aruments. 
+ 
+ 

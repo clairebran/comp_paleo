@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+DIR="/Users/clairebrandes/Documents/comp_paleo/part1_OS/week03/otb_fossils.tsv"
+DATASET="otb_fossils.tsv"
+DATA="$DIR/$DATASET"
+DATE=$(date)
+
+echo "Dataset: $DATA"
+echo "Date: $DATE"
+echo "I am: $(whoami)"
+echo "Number of rows: $(($(wc -l < "$DATA") - 1))"
+echo "Number of columns: $(awk -F '\t' 'NR == 1 {print NF}' "$DATA")"
+
