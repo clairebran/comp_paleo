@@ -1,5 +1,5 @@
 -- =============================================================================
--- Database:  Paranthropus and Homo Paleoecology Database
+-- Database:  Paleoecological Proxy Inventory for Hominin Localities
 -- Author:    Claire Brandes
 -- Date:      2026-10-15
 -- Target:    SQLite 3.31 or newer (uses a generated column)
@@ -66,11 +66,9 @@ CREATE TABLE hominin_occurrences (
     occurrence_id    INTEGER PRIMARY KEY AUTOINCREMENT,
 
     -- Controlled vocabulary
-    genus            TEXT NOT NULL
-                     CHECK (genus IN ('Paranthropus', 'Homo')),
-
-    -- Optional fields
-    scientific_name  TEXT,                            -- NULL permitted: occurrence identified only to genus (e.g., Paranthropus sp.)
+    scientific_name  TEXT NOT NULL                    -- enter 'Paranthropus sp.' or 'Homo sp.' if identified only to genus
+                     CHECK (scientific_name GLOB 'Paranthropus *' OR scientific_name GLOB 'Homo *'),
+                                                      -- rationale: only the genera in the study are recorded; GLOB is case-sensitive
 
     -- Foreign keys
     locality_id      INTEGER NOT NULL
@@ -80,11 +78,7 @@ CREATE TABLE hominin_occurrences (
     publication_id   INTEGER NOT NULL
                      REFERENCES publications (publication_id)
                      ON DELETE RESTRICT               -- rationale: every occurrence must stay traceable to its source
-                     ON UPDATE CASCADE,
-
-    -- Cross-field business rule
-    CHECK (scientific_name IS NULL OR scientific_name LIKE printf('%s %%', genus))
-                                                      -- rationale: the species name must start with the genus in the same row
+                     ON UPDATE CASCADE
 );
 
 

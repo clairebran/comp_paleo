@@ -1,0 +1,19 @@
+Runtime error near line 32: NOT NULL constraint failed: localities.member (19)
+Runtime error near line 44: NOT NULL constraint failed: publications.citation (19)
+Runtime error near line 59: NOT NULL constraint failed: hominin_occurrences.scientific_name (19)
+Runtime error near line 74: UNIQUE constraint failed: publications.doi (19)
+Runtime error near line 86: UNIQUE constraint failed: localities.site, localities.formation, localities.member (19)
+Runtime error near line 101: UNIQUE constraint failed: proxies.locality_id, proxies.type, proxies.publication_id (19)
+Runtime error near line 121: NOT NULL constraint failed: proxies.unit_of_analysis (19)
+Runtime error near line 140: CHECK constraint failed: scientific_name GLOB 'Paranthropus *' OR scientific_name GLOB 'Homo *' (19)
+Runtime error near line 156: CHECK constraint failed: year IS NULL OR year BETWEEN 1800 AND 2100 (19)
+Runtime error near line 168: CHECK constraint failed: year IS NULL OR instr(citation, CAST(year AS TEXT)) > 0 (19)
+enamel_isotopes|specimen_level
+faunal_list|assemblage_level
+paleosol_isotopes|sediment_level
+Parse error near line 189: cannot INSERT into generated column "unit_of_analysis"
+Runtime error near line 206: FOREIGN KEY constraint failed (19)
+Runtime error near line 222: FOREIGN KEY constraint failed (19)
+Runtime error near line 227: FOREIGN KEY constraint failed (19)
+3|3
+3|3
