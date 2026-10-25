@@ -32,8 +32,17 @@ CREATE TABLE localities (
     formation    TEXT NOT NULL,
     member       TEXT NOT NULL,                       -- enter 'undifferentiated' if the source names none
 
+    -- Optional fields (ages in millions of years ago, Ma)
+    oldest_age_ma    REAL
+                     CHECK (oldest_age_ma >= 0),      -- NULL permitted: no published age for this member
+    youngest_age_ma  REAL
+                     CHECK (youngest_age_ma >= 0),    -- NULL permitted: no published age for this member
+
     -- Composite uniqueness
-    UNIQUE (site, formation, member)                  -- rationale: no duplicate localities; safe because all three are NOT NULL
+    UNIQUE (site, formation, member),                 -- rationale: no duplicate localities; safe because all three are NOT NULL
+
+    -- Cross-field business rule
+    CHECK (oldest_age_ma >= youngest_age_ma)          -- rationale: older means a larger Ma value; passes when either age is NULL
 );
 
 
