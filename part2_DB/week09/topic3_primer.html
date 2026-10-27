@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Paranthropus and Homo Paleoecological Proxy Inventory</title>
+    <link rel="stylesheet" href="topic3_style.css">
+</head>
+<body>
+    <header>
+        <h1>Paranthropus and Homo Paleoecological Proxy Inventory</h1>
+        <p class="subtitle">Which proxies exist at Paranthropus and early Homo hominin localities, and where they are published</p>
+    </header>
+
+    <nav>
+        <a href="#inventory">Inventory</a>
+        <a href="#add-locality">Add a locality</a>
+        <a href="#">Publications</a>
+    </nav>
+
+    <main>
+        <section id="inventory">
+            <h2>Proxy Inventory</h2>
+            <p>Each row is one proxy type reported at one locality (site, formation, member) in one publication.</p>
+
+            <table>
+                <caption>Proxy records by locality</caption>
+                <thead>
+                    <tr>
+                        <th>Site</th>
+                        <th>Formation</th>
+                        <th>Member</th>
+                        <th>Proxy type</th>
+                        <th>Unit of analysis</th>
+                        <th>Publication</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Koobi Fora</td>
+                        <td>Koobi Fora Formation</td>
+                        <td>Okote Member</td>
+                        <td class="mono">enamel_isotopes</td>
+                        <td class="mono">specimen_level</td>
+                        <td>Example, A. (2001)</td>
+                    </tr>
+                    <tr>
+                        <td>Koobi Fora</td>
+                        <td>Koobi Fora Formation</td>
+                        <td>Okote Member</td>
+                        <td class="mono">faunal_list</td>
+                        <td class="mono">assemblage_level</td>
+                        <td>Example, B. (2005)</td>
+                    </tr>
+                    <tr>
+                        <td>Koobi Fora</td>
+                        <td>Koobi Fora Formation</td>
+                        <td>KBS Member</td>
+                        <td class="mono">enamel_isotopes</td>
+                        <td class="mono">specimen_level</td>
+                        <td>Example, B. (2005)</td>
+                    </tr>
+                    <tr>
+                        <td>Olduvai Gorge</td>
+                        <td>Olduvai Formation</td>
+                        <td>Bed I</td>
+                        <td class="mono">paleosol_isotopes</td>
+                        <td class="mono">sediment_level</td>
+                        <td>Example, C. (1998)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="add-locality">
+            <h2>Add a locality</h2>
+            <p class="note">Fields marked * are required.</p>
+
+            <form method="post" action="#">
+                <div class="field">
+                    <label for="country" class="required">Country</label>
+                    <select id="country" name="country" required>
+                        <option value="">Choose a country</option>
+                        <option value="Kenya">Kenya</option>
+                        <option value="Ethiopia">Ethiopia</option>
+                        <option value="Tanzania">Tanzania</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="site" class="required">Site</label>
+                    <input type="text" id="site" name="site" placeholder="e.g., Koobi Fora" required>
+                </div>
+
+                <div class="field">
+                    <label for="formation" class="required">Formation</label>
+                    <input type="text" id="formation" name="formation" required>
+                </div>
+
+                <div class="field">
+                    <label for="member" class="required">Member</label>
+                    <input type="text" id="member" name="member" required>
+                    <small>Enter "undifferentiated" if the source names no member.</small>
+                </div>
+
+                <div class="field">
+                    <label for="oldest_age_ma">Oldest age (Ma)</label>
+                    <input type="number" id="oldest_age_ma" name="oldest_age_ma" min="0" step="any">
+                </div>
+
+                <div class="field">
+                    <label for="youngest_age_ma">Youngest age (Ma)</label>
+                    <input type="number" id="youngest_age_ma" name="youngest_age_ma" min="0" step="any">
+                </div>
+
+                <button type="submit">Save locality</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

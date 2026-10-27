@@ -1,0 +1,148 @@
+/* topic3_style.css -- styles for topic3_primer.html */
+
+body {
+    font-family: Georgia, serif;
+    background-color: #faf8f5;      /* cream */
+    color: #2b2218;                 /* dark brown */
+    line-height: 1.5;
+    margin: 0;
+}
+
+header {
+    padding: 1.5rem 2rem 1rem;
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.9rem;
+}
+
+.subtitle {
+    margin: 0.25rem 0 0;
+    color: #6b5d4a;
+    font-style: italic;
+}
+
+h2 {
+    margin-top: 2rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid #c9b99a;
+}
+
+/* ── Navigation bar ─────────────────────────────────────────────── */
+nav {
+    background-color: #4a3f2f;
+    padding: 0.75rem 2rem;
+}
+
+nav a {
+    color: #e8dcc8;
+    text-decoration: none;
+    margin-right: 1.5rem;
+}
+
+nav a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* ── Page layout ────────────────────────────────────────────────── */
+main {
+    max-width: 60rem;
+    padding: 0 2rem 3rem;
+}
+
+/* ── Table ──────────────────────────────────────────────────────── */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+caption {
+    text-align: left;
+    font-weight: bold;
+    padding-bottom: 0.5rem;
+}
+
+th, td {
+    border: 1px solid #cfc4b0;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+}
+
+th {
+    background-color: #4a3f2f;
+    color: #e8dcc8;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f1ebe0;
+}
+
+tbody tr:hover {
+    background-color: #e8dcc8;
+}
+
+.mono {
+    font-family: Menlo, Consolas, monospace;
+    font-size: 0.85rem;
+}
+
+/* ── Form ───────────────────────────────────────────────────────── */
+form {
+    max-width: 28rem;
+}
+
+.field {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.required::after {
+    content: " *";
+    color: #c0392b;
+}
+
+input, select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    font: inherit;
+    border: 1px solid #b8a98c;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+input:focus, select:focus {
+    outline: 2px solid #8a6d3b;
+    border-color: #8a6d3b;
+}
+
+small, .note {
+    color: #6b5d4a;
+}
+
+small {
+    display: block;
+    margin-top: 0.25rem;
+}
+
+button {
+    background-color: #4a3f2f;
+    color: #e8dcc8;
+    font: inherit;
+    padding: 0.6rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #6b5a40;
+}
