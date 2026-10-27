@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Home — Proxy Inventory{% endblock %}
+{% block content %}
+<h1>Paleoecological Proxy Inventory</h1>
+<p class="subtitle">Which proxies exist at hominin localities, and where they are published.</p>
+
+<h2>Records in the database</h2>
+<table>
+    <thead>
+        <tr><th>Table</th><th>Rows</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><a href="{{ url_for('list_localities') }}">Localities</a></td><td>{{ counts['localities'] }}</td></tr>
+        <tr><td><a href="{{ url_for('list_publications') }}">Publications</a></td><td>{{ counts['publications'] }}</td></tr>
+        <tr><td><a href="{{ url_for('list_occurrences') }}">Hominin occurrences</a></td><td>{{ counts['hominin_occurrences'] }}</td></tr>
+        <tr><td><a href="{{ url_for('list_proxies') }}">Proxies</a></td><td>{{ counts['proxies'] }}</td></tr>
+    </tbody>
+</table>
+{% endblock %}

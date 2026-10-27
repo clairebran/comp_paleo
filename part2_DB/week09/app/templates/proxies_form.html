@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Add proxy — Proxy Inventory{% endblock %}
+{% block content %}
+<h1>Add a proxy</h1>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+<p class="note">Fields marked * are required. The unit of analysis is set automatically from the type.</p>
+
+<form method="post">
+    <div class="field">
+        <label for="type" class="required">Proxy type</label>
+        <select id="type" name="type" required>
+            <option value="">Choose a type</option>
+            {% for t in proxy_types %}
+            <option value="{{ t }}" {% if form.get('type') == t %}selected{% endif %}>{{ t }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="field">
+        <label for="locality_id" class="required">Locality</label>
+        <select id="locality_id" name="locality_id" required>
+            <option value="">Choose a locality</option>
+            {% for loc in localities %}
+            <option value="{{ loc['locality_id'] }}" {% if form.get('locality_id') == loc['locality_id']|string %}selected{% endif %}>
+                {{ loc['site'] }} — {{ loc['formation'] }} — {{ loc['member'] }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="field">
+        <label for="publication_id" class="required">Publication</label>
+        <select id="publication_id" name="publication_id" required>
+            <option value="">Choose a publication</option>
+            {% for pub in publications %}
+            <option value="{{ pub['publication_id'] }}" {% if form.get('publication_id') == pub['publication_id']|string %}selected{% endif %}>
+                {{ pub['citation'] }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit">Save proxy</button>
+    <a href="{{ url_for('list_proxies') }}">Cancel</a>
+</form>
+{% endblock %}

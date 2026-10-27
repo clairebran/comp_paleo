@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Hominin occurrences — Proxy Inventory{% endblock %}
+{% block content %}
+<h1>Hominin occurrences</h1>
+<a class="button-link" href="{{ url_for('new_occurrence') }}">+ Add occurrence</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th><th>Scientific name</th><th>Site</th><th>Formation</th>
+            <th>Member</th><th>Publication</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rows %}
+        <tr>
+            <td>{{ row['occurrence_id'] }}</td>
+            <td><em>{{ row['scientific_name'] }}</em></td>
+            <td>{{ row['site'] }}</td>
+            <td>{{ row['formation'] }}</td>
+            <td>{{ row['member'] }}</td>
+            <td>{{ row['citation'] }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6">No hominin occurrences yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

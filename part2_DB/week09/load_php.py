@@ -27,7 +27,7 @@ from decimal import Decimal, InvalidOperation
 import psycopg2
 import psycopg2.extras
 
-from config import DSN          # config.py is listed in .gitignore and never committed
+from app.config import DSN          # config.py is listed in .gitignore and never committed
 
 TSV_FILE = "proxy_inventory_sample.tsv"
 

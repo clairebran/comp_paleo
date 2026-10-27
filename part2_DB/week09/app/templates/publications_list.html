@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Publications — Proxy Inventory{% endblock %}
+{% block content %}
+<h1>Publications</h1>
+<a class="button-link" href="{{ url_for('new_publication') }}">+ Add publication</a>
+<table>
+    <thead>
+        <tr><th>ID</th><th>Citation</th><th>Year</th><th>DOI</th></tr>
+    </thead>
+    <tbody>
+        {% for row in rows %}
+        <tr>
+            <td>{{ row['publication_id'] }}</td>
+            <td>{{ row['citation'] }}</td>
+            <td>{{ row['year'] or '—' }}</td>
+            <td>{{ row['doi'] or '—' }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4">No publications yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

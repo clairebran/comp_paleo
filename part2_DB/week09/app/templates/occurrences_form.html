@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Add hominin occurrence — Proxy Inventory{% endblock %}
+{% block content %}
+<h1>Add a hominin occurrence</h1>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+<p class="note">Fields marked * are required.</p>
+
+<form method="post">
+    <div class="field">
+        <label for="scientific_name" class="required">Scientific name</label>
+        <input type="text" id="scientific_name" name="scientific_name" placeholder="e.g., Homo habilis" value="{{ form.get('scientific_name', '') }}" required>
+        <small>Must begin with "Paranthropus " or "Homo ". Use "Homo sp." if identified only to genus.</small>
+    </div>
+    <div class="field">
+        <label for="locality_id" class="required">Locality</label>
+        <select id="locality_id" name="locality_id" required>
+            <option value="">Choose a locality</option>
+            {% for loc in localities %}
+            <option value="{{ loc['locality_id'] }}" {% if form.get('locality_id') == loc['locality_id']|string %}selected{% endif %}>
+                {{ loc['site'] }} — {{ loc['formation'] }} — {{ loc['member'] }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="field">
+        <label for="publication_id" class="required">Publication</label>
+        <select id="publication_id" name="publication_id" required>
+            <option value="">Choose a publication</option>
+            {% for pub in publications %}
+            <option value="{{ pub['publication_id'] }}" {% if form.get('publication_id') == pub['publication_id']|string %}selected{% endif %}>
+                {{ pub['citation'] }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit">Save occurrence</button>
+    <a href="{{ url_for('list_occurrences') }}">Cancel</a>
+</form>
+{% endblock %}
