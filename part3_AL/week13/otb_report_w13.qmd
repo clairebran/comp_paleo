@@ -1,0 +1,39 @@
+---
+title: "Hominin ECV Analysis"
+author: "Claire Brandes"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: true
+execute:
+  echo: true
+  warning: false
+---
+
+# Week 13 - Statistical Modeling and Quarto
+
+## Import Data
+
+Import data from week11 ecv_by_specimen.csv and print the dimensions and first five rows. 
+
+```{python}
+#| label: setup
+#| message: false
+
+import pandas as pd
+import numpy as np
+import statsmodels.formula.api as smf
+import patsy
+from plotnine import *
+
+ecv = pd.read_csv('fossils_ecv.csv')
+
+# Put the grades in evolutionary order (otherwise they sort alphabetically)
+grade_order = ['archaic', 'mega', 'trans', 'pre.mod']
+ecv['grade'] = pd.Categorical(ecv['grade'], categories=grade_order, ordered=True)
+
+print(ecv.shape)
+print('Missing grades:', ecv['grade'].isna().sum())
+ecv.head()
+```
